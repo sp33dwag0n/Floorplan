@@ -22,10 +22,13 @@
 }
 
 .floor-plan-card img {
+    width:100%;
+    height:100%;
     max-width: 580px;
     max-height: 580px;
     height: auto;
     border-radius: 4px;
+    object-fit: contain;
 }
 
 .floor-plan-card h3 {

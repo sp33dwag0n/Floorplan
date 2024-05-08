@@ -16,7 +16,7 @@ const NumberInput = styled.input`
 `;
 
 function FloorPlanForm({ onSubmit }) {
-  const { saveFloorPlan, currentImage, setCurrentImage} = useContext(FloorPlanContext);
+  const { saveFloorPlan, currentImage} = useContext(FloorPlanContext);
   const [formData, setFormData] = useState({
     name: '',
     interiorSize: '',
@@ -38,7 +38,6 @@ function FloorPlanForm({ onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setCurrentImage(currentImage);
     saveFloorPlan(formData, currentImage);
     onSubmit?.();
 
@@ -57,7 +56,7 @@ function FloorPlanForm({ onSubmit }) {
   
     setTimeout(() => {
       setPopup(false);
-    }, 5000);
+    }, 2500);
   };
 
   const allFieldsFilled = () => {
