@@ -68,3 +68,25 @@ form {
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     z-index: 1000;
   }
+
+  .input-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: -20px;
+  }
+  
+  .input-row input[type="number"],
+  .input-row select {
+    flex-grow: 1;
+    margin-right: 20px;
+  }
+  
+  .input-row input[type="number"] {
+    flex-grow: 3;
+  }
+  
+  .input-row select {
+    flex-grow: 1;
+    width: auto;
+  }
+  

@@ -72,20 +72,25 @@ function FloorPlanForm({ onSubmit }) {
       <input type="text" name="name" placeholder="Name" onChange={handleChange} value={formData.name} />
       <br />
       
+
       <label>Interior Size: </label>
-      <NumberInput type="number" name="interiorSize" placeholder="Interior Size" onChange={handleChange} value={formData.interiorSize} min="0"/>
-      <select name="interiorUnit" onChange={handleChange} value={formData.interiorUnit}>
-        <option value="ft">ft</option>
-        <option value="m">m</option>
-      </select>
+      <div className="input-row"> {}
+        <NumberInput type="number" name="interiorSize" placeholder="Interior Size" onChange={handleChange} value={formData.interiorSize} min="0"/>
+        <select name="interiorUnit" onChange={handleChange} value={formData.interiorUnit}>
+          <option value="ft">ft</option>
+          <option value="m">m</option>
+        </select>
+      </div>
       <br />
 
       <label>Exterior Size: </label>
-      <NumberInput type="number" name="exteriorSize" placeholder="Exterior Size" onChange={handleChange} value={formData.exteriorSize} min="0"/>
-      <select name="exteriorUnit" onChange={handleChange} value={formData.exteriorUnit}>
-        <option value="ft">ft</option>
-        <option value="m">m</option>
-      </select>
+      <div className="input-row"> {}
+        <NumberInput type="number" name="exteriorSize" placeholder="Exterior Size" onChange={handleChange} value={formData.exteriorSize} min="0"/>
+        <select name="exteriorUnit" onChange={handleChange} value={formData.exteriorUnit}>
+          <option value="ft">ft</option>
+          <option value="m">m</option>
+        </select>
+      </div>
       <br />
       
       <label>Exterior Type: </label>
