@@ -27,6 +27,7 @@ function FloorPlanForm({ onSubmit }) {
     facingDirection: '',
     floorType: ''
   });
+  const [popup, setPopup] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -51,6 +52,12 @@ function FloorPlanForm({ onSubmit }) {
       facingDirection: '',
       floorType: ''
     });
+
+    setPopup(true);
+  
+    setTimeout(() => {
+      setPopup(false);
+    }, 5000);
   };
 
   const allFieldsFilled = () => {
@@ -61,6 +68,7 @@ function FloorPlanForm({ onSubmit }) {
 
   return (
     <form onSubmit={handleSubmit}>
+      {popup && <div className="popup">Form submitted successfully!</div>}
       <label>Name: </label>
       <input type="text" name="name" placeholder="Name" onChange={handleChange} value={formData.name} />
       <br />

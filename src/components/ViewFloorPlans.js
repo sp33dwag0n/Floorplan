@@ -5,6 +5,16 @@ import '../styles/ViewFloorPlans.css';
 function ViewFloorPlans() {
   const { floorPlans } = useContext(FloorPlanContext);
 
+  if (floorPlans.length === 0) {
+    return (
+      <div className="view-floor-plans-container">
+        <div className="no-floor-plans">
+          No Floor Plans Submitted
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="view-floor-plans-container">
       {floorPlans.map((plan, index) => (
