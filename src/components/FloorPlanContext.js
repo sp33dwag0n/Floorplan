@@ -17,7 +17,8 @@ export const FloorPlanProvider = ({ children }) => {
 
   return (
     <FloorPlanContext.Provider value={{
-      floorPlans, saveFloorPlan, currentImage, setCurrentImage, rotation, setRotation, zoom, setZoom
+      floorPlans, saveFloorPlan, currentImage, setCurrentImage, rotation, setRotation, 
+      zoom, setZoom
     }}>
       {children}
     </FloorPlanContext.Provider>
