@@ -26,8 +26,13 @@ export const FloorPlanProvider = ({ children }) => {
     img.onload = () => {
       canvas.width = 600;
       canvas.height = 400;
-      const scaleX = (canvas.width / img.width) * (zoom / 100);
-      const scaleY = (canvas.height / img.height) * (zoom / 100);
+
+      let scale = 0;
+      if (img.width / img.height > 1.5) {
+        scale = (canvas.width / img.width) * (zoom / 100);
+      } else {
+        scale = (canvas.height / img.height) * (zoom / 100);
+      }
       
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -37,21 +42,21 @@ export const FloorPlanProvider = ({ children }) => {
 
       let dy = 0;
       let dx = 0;
-      let dWidth = img.width * scaleX;
-      let dHeight = img.height * scaleY;
+      let dWidth = img.width * scale;
+      let dHeight = img.height * scale;
 
       if (rotation % 360 === 0) {
-        dx = -img.width / 2 * scaleX + position.x;
-        dy = -img.height / 2 * scaleY + position.y; 
+        dx = -img.width / 2 * scale + position.x;
+        dy = -img.height / 2 * scale + position.y; 
       } else if ((rotation + 180) % 360 === 0) {
-        dx = -img.width / 2 * scaleX - position.x;
-        dy = -img.height / 2 * scaleY - position.y;
+        dx = -img.width / 2 * scale - position.x;
+        dy = -img.height / 2 * scale - position.y;
       } else if ((rotation + 90) % 360 === 0) {
-        dx = (-img.width / 2 * scaleX) - position.y;
-        dy = (-img.height / 2 * scaleY) + position.x;
+        dx = -img.width / 2 * scale - position.y;
+        dy = -img.height / 2 * scale + position.x;
       } else {
-        dx = (-img.width / 2 * scaleX) + position.y;
-        dy = (-img.height / 2 * scaleY) - position.x;
+        dx = -img.width / 2 * scale + position.y;
+        dy = -img.height / 2 * scale - position.x;
       }
 
       ctx.drawImage(img, dx, dy, dWidth, dHeight);
