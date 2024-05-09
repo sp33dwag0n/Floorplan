@@ -26,15 +26,28 @@ export const FloorPlanProvider = ({ children }) => {
     img.onload = () => {
       canvas.width = 600;
       canvas.height = 400;
+      
+      let scaleX = 0;
+      let scaleY = 0;
 
-      const scaleX = (canvas.width / img.width) * (zoom / 100);
-      const scaleY = (canvas.height / img.height) * (zoom / 100);
+      scaleX = (canvas.width / img.width) * (zoom / 100);
+      scaleY = (canvas.height / img.height) * (zoom / 100);
+      
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.save();
       ctx.translate(canvas.width / 2, canvas.height / 2);
       ctx.rotate((rotation * Math.PI) / 180);
-      ctx.drawImage(img, -img.width / 2 * scaleX + position.x, -img.height / 2 * scaleY + position.y, img.width * scaleX, img.height * scaleY);
+      if (rotation % 360 === 0) {
+        ctx.drawImage(img, -img.width / 2 * scaleX + position.x, -img.height / 2 * scaleY + position.y, img.width * scaleX, img.height * scaleY);
+      } else if ((rotation + 180) % 360 === 0) {
+        ctx.drawImage(img, -img.width / 2 * scaleX - position.x, -img.height / 2 * scaleY - position.y, img.width * scaleX, img.height * scaleY);
+      } else if ((rotation + 90) % 360 === 0) {
+        ctx.drawImage(img, (-img.width / 2 * scaleX) - position.y, (-img.height / 2 * scaleY) - position.x, img.width * scaleX, img.height * scaleY);
+      } else {
+        ctx.drawImage(img, (-img.width / 2 * scaleX) + position.y, (-img.height / 2 * scaleY) + position.x, img.width * scaleX, img.height * scaleY);
+      }
+
       const finalImageDataUrl = canvas.toDataURL('image/png');
       ctx.restore();
 
