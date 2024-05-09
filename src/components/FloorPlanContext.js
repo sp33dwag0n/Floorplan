@@ -26,27 +26,49 @@ export const FloorPlanProvider = ({ children }) => {
     img.onload = () => {
       canvas.width = 600;
       canvas.height = 400;
-      
-      let scaleX = 0;
-      let scaleY = 0;
-
-      scaleX = (canvas.width / img.width) * (zoom / 100);
-      scaleY = (canvas.height / img.height) * (zoom / 100);
+      const scaleX = (canvas.width / img.width) * (zoom / 100);
+      const scaleY = (canvas.height / img.height) * (zoom / 100);
       
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.save();
       ctx.translate(canvas.width / 2, canvas.height / 2);
       ctx.rotate((rotation * Math.PI) / 180);
+
+      let dy = 0;
+      let dx = 0;
+      let dWidth = img.width * scaleX;
+      let dHeight = img.height * scaleY;
+
       if (rotation % 360 === 0) {
-        ctx.drawImage(img, -img.width / 2 * scaleX + position.x, -img.height / 2 * scaleY + position.y, img.width * scaleX, img.height * scaleY);
+        dx = -img.width / 2 * scaleX + position.x;
+        dy = -img.height / 2 * scaleY + position.y; 
       } else if ((rotation + 180) % 360 === 0) {
-        ctx.drawImage(img, -img.width / 2 * scaleX - position.x, -img.height / 2 * scaleY - position.y, img.width * scaleX, img.height * scaleY);
+        dx = -img.width / 2 * scaleX - position.x;
+        dy = -img.height / 2 * scaleY - position.y;
       } else if ((rotation + 90) % 360 === 0) {
-        ctx.drawImage(img, (-img.width / 2 * scaleX) - position.y, (-img.height / 2 * scaleY) - position.x, img.width * scaleX, img.height * scaleY);
+        dx = (-img.width / 2 * scaleX) - position.y;
+        dy = (-img.height / 2 * scaleY) + position.x;
       } else {
-        ctx.drawImage(img, (-img.width / 2 * scaleX) + position.y, (-img.height / 2 * scaleY) + position.x, img.width * scaleX, img.height * scaleY);
+        dx = (-img.width / 2 * scaleX) + position.y;
+        dy = (-img.height / 2 * scaleY) - position.x;
       }
+
+      // if (dx + canvas.width / 2 < 0) {
+      //   dWidth = img.width * scaleX + dx + canvas.width / 2;
+      //   dx = -(canvas.width / 2);
+      // } else if (dx + dWidth > canvas.width / 2){
+      //   dWidth = canvas.width / 2 - dx;
+      // }
+
+      // if (dy + canvas.height / 2 < 0) {
+      //   dHeight = img.height * scaleY + dy + canvas.height / 2;
+      //   dy = -(canvas.height / 2);
+      // } else if (dy + dHeight > canvas.height / 2) {
+      //   dHeight = canvas.height / 2 - dy;
+      // }
+
+      ctx.drawImage(img, dx, dy, dWidth, dHeight);
 
 
       const finalImageDataUrl = canvas.toDataURL('image/png');
