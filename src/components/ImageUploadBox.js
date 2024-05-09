@@ -16,6 +16,7 @@ function ImageUploadBox() {
       setRotation(0);
       setZoom(100);
       setPosition({ x: 0, y: 0 });
+      fileInputRef.current.value = null;
     };
     reader.readAsDataURL(file);
   }, [setCurrentImage, setRotation, setZoom, setPosition]);
