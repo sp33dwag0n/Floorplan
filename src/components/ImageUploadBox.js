@@ -4,8 +4,7 @@ import { FloorPlanContext } from './FloorPlanContext';
 import '../styles/ImageUploadBox.css';
 
 function ImageUploadBox() {
-  const { currentImage, setCurrentImage, rotation, setRotation, zoom, setZoom } = useContext(FloorPlanContext);
-  const [position, setPosition] = useState({x:0, y:0});
+  const { currentImage, setCurrentImage, rotation, setRotation, zoom, setZoom, position, setPosition, canvasRef } = useContext(FloorPlanContext);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
 
@@ -19,7 +18,7 @@ function ImageUploadBox() {
       setPosition({ x: 0, y: 0 });
     };
     reader.readAsDataURL(file);
-  }, [setCurrentImage, setRotation, setZoom]);
+  }, [setCurrentImage, setRotation, setZoom, setPosition]);
 
   const { getRootProps, getInputProps } = useDropzone({ onDrop, noClick: true, noKeyboard: true });
 
@@ -55,13 +54,11 @@ function ImageUploadBox() {
 
   return (
     <div className="image-upload-container">
+      <canvas ref={canvasRef} style={{ display: 'none' }} width="0" height="0"></canvas>
       <div {...getRootProps()} className="image-box">
         <div className="image-container" style={{
             backgroundImage: `url(${currentImage})`, 
             transform: `translate(${position.x}px, ${position.y}px) rotate(${rotation}deg) scale(${zoom / 100})`,
-            backgroundSize: 'contain',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
         }}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
@@ -78,7 +75,7 @@ function ImageUploadBox() {
           <div>
             <button onClick={() => setRotation(rotation - 90)} className="rotate-button">Rotate Left</button>
             <button onClick={() => setRotation(rotation + 90)} className="rotate-button">Rotate Right</button>
-            <input type="range" min="50" max="300" step="10" value={zoom} onChange={(e) => setZoom(e.target.value)} className="slider" />
+            <input type="range" min="10" max="500" step="10" value={zoom} onChange={(e) => setZoom(e.target.value)} className="slider" />
           </div>
         )}
       </div>

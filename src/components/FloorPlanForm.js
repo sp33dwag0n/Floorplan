@@ -16,7 +16,7 @@ const NumberInput = styled.input`
 `;
 
 function FloorPlanForm({ onSubmit }) {
-  const { saveFloorPlan, currentImage} = useContext(FloorPlanContext);
+  const { saveFloorPlan, currentImage, createFinalImage} = useContext(FloorPlanContext);
   const [formData, setFormData] = useState({
     name: '',
     interiorSize: '',
@@ -38,25 +38,27 @@ function FloorPlanForm({ onSubmit }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    saveFloorPlan(formData, currentImage);
-    onSubmit?.();
+    createFinalImage((generatedImage) => {
+      saveFloorPlan(formData, generatedImage);
+      onSubmit?.();
 
-    setFormData({
-      name: '',
-      interiorSize: '',
-      interiorUnit: 'ft',
-      exteriorSize: '',
-      exteriorUnit: 'ft',
-      exteriorType: '',
-      facingDirection: '',
-      floorType: ''
-    });
+      setFormData({
+        name: '',
+        interiorSize: '',
+        interiorUnit: 'ft',
+        exteriorSize: '',
+        exteriorUnit: 'ft',
+        exteriorType: '',
+        facingDirection: '',
+        floorType: ''
+      });
 
-    setPopup(true);
+      setPopup(true);
   
-    setTimeout(() => {
-      setPopup(false);
-    }, 2500);
+      setTimeout(() => {
+        setPopup(false);
+      }, 2500);
+    });
   };
 
   const allFieldsFilled = () => {
