@@ -54,20 +54,6 @@ export const FloorPlanProvider = ({ children }) => {
         dy = (-img.height / 2 * scaleY) - position.x;
       }
 
-      // if (dx + canvas.width / 2 < 0) {
-      //   dWidth = img.width * scaleX + dx + canvas.width / 2;
-      //   dx = -(canvas.width / 2);
-      // } else if (dx + dWidth > canvas.width / 2){
-      //   dWidth = canvas.width / 2 - dx;
-      // }
-
-      // if (dy + canvas.height / 2 < 0) {
-      //   dHeight = img.height * scaleY + dy + canvas.height / 2;
-      //   dy = -(canvas.height / 2);
-      // } else if (dy + dHeight > canvas.height / 2) {
-      //   dHeight = canvas.height / 2 - dy;
-      // }
-
       ctx.drawImage(img, dx, dy, dWidth, dHeight);
 
 
