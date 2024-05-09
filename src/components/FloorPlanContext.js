@@ -48,6 +48,7 @@ export const FloorPlanProvider = ({ children }) => {
         ctx.drawImage(img, (-img.width / 2 * scaleX) + position.y, (-img.height / 2 * scaleY) + position.x, img.width * scaleX, img.height * scaleY);
       }
 
+
       const finalImageDataUrl = canvas.toDataURL('image/png');
       ctx.restore();
 
