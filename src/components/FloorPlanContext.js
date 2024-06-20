@@ -28,7 +28,7 @@ export const FloorPlanProvider = ({ children }) => {
       canvas.height = 400;
 
       let scale = 0;
-      if (img.width / img.height > 1.5) {
+      if ((img.width / img.height) > (canvas.width / canvas.height)) {
         scale = (canvas.width / img.width) * (zoom / 100);
       } else {
         scale = (canvas.height / img.height) * (zoom / 100);
